@@ -1,0 +1,88 @@
+[gd_scene load_steps=12 format=3 uid="uid://q7y8tjusqe0x"]
+
+[ext_resource type="Texture2D" uid="uid://cttlq1y6d8eiw" path="res://Assets/Art/coalSpiritFLOAT-Sheet.png" id="1_h465o"]
+[ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_m6d3d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnx2d"]
+atlas = ExtResource("1_h465o")
+region = Rect2(0, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj7pg"]
+atlas = ExtResource("1_h465o")
+region = Rect2(40, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtnqn"]
+atlas = ExtResource("1_h465o")
+region = Rect2(80, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw6pu"]
+atlas = ExtResource("1_h465o")
+region = Rect2(120, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyx26"]
+atlas = ExtResource("1_h465o")
+region = Rect2(160, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0yo2i"]
+atlas = ExtResource("1_h465o")
+region = Rect2(200, 0, 40, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vmj10"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"Death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnx2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj7pg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtnqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw6pu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyx26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0yo2i")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t2jiv"]
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e7qhh"]
+radius = 125.399
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 6
+collision_mask = 6
+script = ExtResource("1_m6d3d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vmj10")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_t2jiv")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_e7qhh")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

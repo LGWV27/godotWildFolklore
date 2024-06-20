@@ -3,7 +3,8 @@ extends CharacterBody2D
 @export var SPEED : int = 155
 @export var GRAVITY : int = 900
 @export var JUMP_FORCE : int = 255
-
+var enemy = null
+var contact = false
 
 
 func _physics_process(delta):
@@ -46,3 +47,27 @@ func _physics_process(delta):
 
 func _on_area_2d_2_body_entered(body):
 	print("DEAD")
+
+func _process(delta):	
+	if Resources.player_health <= 0:
+		print("you died")
+
+func _on_area_2d_body_entered(body):
+	enemy = body
+	Resources.player_health -= 1
+	contact = true
+	$Timer.start(2)
+	print("timer start")
+
+
+func _on_area_2d_body_exited(body):
+	contact = false
+
+
+func _on_timer_timeout():
+	print("timer")
+	if contact == true:
+		Resources.player_health -= 1
+		print("timer health drain")
+	else:
+		pass

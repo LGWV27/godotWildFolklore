@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bq0i4whcm2m0p"]
+[gd_scene load_steps=9 format=3 uid="uid://bq0i4whcm2m0p"]
 
 [ext_resource type="PackedScene" uid="uid://ch6wr5kr8biea" path="res://Scenes/Player.tscn" id="1_g7636"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_ohgbr"]
 [ext_resource type="Texture2D" uid="uid://dbbtcd5nf2xhg" path="res://Assets/Art/icon.svg" id="2_tacgh"]
 [ext_resource type="PackedScene" uid="uid://7x5baougo46i" path="res://Scenes/death_bottom.tscn" id="3_jqliy"]
+[ext_resource type="PackedScene" uid="uid://q7y8tjusqe0x" path="res://Scenes/enemy.tscn" id="5_7hydd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mrkyg"]
 texture = ExtResource("2_tacgh")
@@ -224,10 +225,16 @@ position = Vector2(178, 492)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-3, 5)
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Player/Camera2D"]
+offset_left = -180.0
+offset_top = -320.0
+offset_right = -140.0
+offset_bottom = -280.0
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_1j8on")
 format = 2
-layer_0/tile_data = PackedInt32Array(2162695, 0, 0, 2162696, 65536, 0, 2162697, 131072, 0, 2162698, 196608, 0, 2162699, 262144, 0, 2162700, 327680, 0, 2162701, 393216, 0, 2162702, 458752, 0)
+layer_0/tile_data = PackedInt32Array(2097159, 0, 0, 2097160, 65536, 0, 2097161, 131072, 0, 2097162, 196608, 0, 2097163, 262144, 0, 2097164, 327680, 0, 2097165, 393216, 0, 2097166, 458752, 0, 1703943, 0, 0, 1703944, 65536, 0, 1703945, 131072, 0, 1703946, 196608, 0, 1703947, 262144, 0, 1703948, 327680, 0, 1703949, 393216, 0, 1703950, 458752, 0)
 
 [node name="DeathBottom" parent="." instance=ExtResource("3_jqliy")]
 position = Vector2(177, 960)
@@ -239,6 +246,9 @@ position = Vector2(0.178284, 0.10051)
 shape = SubResource("RectangleShape2D_chisd")
 
 [node name="StartTimer" type="Timer" parent="."]
+
+[node name="Enemy" parent="." instance=ExtResource("5_7hydd")]
+position = Vector2(179, 337)
 
 [connection signal="body_entered" from="DeathBottom/Area2D2" to="Player" method="_on_area_2d_2_body_entered"]
 [connection signal="timeout" from="StartTimer" to="DeathBottom" method="_on_start_timer_timeout"]

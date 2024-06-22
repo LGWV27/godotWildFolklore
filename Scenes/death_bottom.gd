@@ -19,4 +19,4 @@ func _physics_process(delta):
 
 
 func _on_start_timer_timeout():
-	speed = -10
+	speed = 0

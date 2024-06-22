@@ -5,23 +5,21 @@ extends CharacterBody2D
 @export var JUMP_FORCE : int = 255
 var enemy = null
 var contact = false
+var attack_ip = false
 
 
 func _physics_process(delta):
-	
-	
 	var direction = Input.get_axis("moveLeft", "moveRight")
 	
 	if direction:
 		velocity.x = direction * SPEED
-		
-		if is_on_floor():
+		if is_on_floor() and attack_ip == false:
 			$AnimatedSprite2D.play("run")
 		
 	else:
 		velocity.x = 0
 		
-		if is_on_floor():
+		if is_on_floor() and attack_ip == false:
 			$AnimatedSprite2D.play("idle")
 	
 	#Rotate
@@ -43,6 +41,7 @@ func _physics_process(delta):
 		if velocity.y > 0:
 			$AnimatedSprite2D.play("fall")
 		
+	attack()
 	move_and_slide()
 
 func _on_area_2d_2_body_entered(body):
@@ -50,7 +49,8 @@ func _on_area_2d_2_body_entered(body):
 
 func _process(delta):	
 	if Resources.player_health <= 0:
-		print("you died")
+		pass
+		# print("you died")
 
 func _on_area_2d_body_entered(body):
 	enemy = body
@@ -71,3 +71,20 @@ func _on_timer_timeout():
 		print("timer health drain")
 	else:
 		pass
+
+# ATTACK STUFF
+func player():
+	pass
+
+func attack():
+	if Input.is_action_just_pressed("Attack") and attack_ip == false:
+		Resources.player_current_attack = true
+		attack_ip = true
+		$AnimatedSprite2D.play("attack")
+		$attack_animation_cooldonw.start()
+	else:
+		Resources.player_current_attack = false
+
+
+func _on_attack_animation_cooldonw_timeout():
+	attack_ip = false

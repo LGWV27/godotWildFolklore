@@ -1,8 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://q7y8tjusqe0x"]
+[gd_scene load_steps=21 format=3 uid="uid://q7y8tjusqe0x"]
 
 [ext_resource type="Texture2D" uid="uid://cttlq1y6d8eiw" path="res://Assets/Art/coalSpiritFLOAT-Sheet.png" id="1_h465o"]
 [ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_m6d3d"]
+[ext_resource type="Shader" path="res://Scenes/Player.gdshader" id="2_1dl4b"]
 [ext_resource type="Texture2D" uid="uid://ctrc4p3dbor1t" path="res://Assets/Art/coalSpiritDEAD.png" id="2_4ca10"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yk8qn"]
+shader = ExtResource("2_1dl4b")
+shader_parameter/damaged = null
+shader_parameter/damage_color = Vector4(1, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lq1ob"]
 atlas = ExtResource("2_4ca10")
@@ -109,6 +115,7 @@ collision_mask = 6
 script = ExtResource("1_m6d3d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_yk8qn")
 sprite_frames = SubResource("SpriteFrames_vmj10")
 animation = &"Death"
 autoplay = "idle"

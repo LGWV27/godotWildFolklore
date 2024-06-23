@@ -2,16 +2,29 @@ extends AudioStreamPlayer
 
 const level_music = preload("res://Assets/Sound/BeepBox-Song(1).mp3")
 
-func _play_music(music: AudioStream, volume = 0.0):
+
+
+
+
+
+
+func _play_music(music: AudioStream, volume = -8.0):
 	if stream == music:
-		return
+		play()
 	
 	stream = music
 	volume_db = volume
-	play()
+	if Resources.musicOFF == false:
+		play()
+	else:
+		pass
 	
 func play_music_level():
-	_play_music(level_music)
+	if Resources.musicOFF == false:
+		_play_music(level_music)
+		
+	else:
+		stop()
 
 func play_FX(stream: AudioStream, volume = 0.0):
 	var fx_player = AudioStreamPlayer.new()
@@ -19,7 +32,11 @@ func play_FX(stream: AudioStream, volume = 0.0):
 	fx_player.name = "FX_PLAYER"
 	fx_player.volume_db = volume
 	add_child(fx_player)
-	fx_player.play()
+	
+	if Resources.fxOFF == false:
+		fx_player.play()
+	else:
+		pass
 	
 	await fx_player.finished
 	

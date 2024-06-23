@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed = 0
+var speed = -10
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,4 +19,5 @@ func _physics_process(delta):
 
 
 func _on_start_timer_timeout():
-	speed = 0
+	speed += -10
+	$"../StartTimer".start(10)

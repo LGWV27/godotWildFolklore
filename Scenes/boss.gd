@@ -4,8 +4,10 @@ var speed = 25
 var player_chase = false
 var player = null
 
-var health = 3
+var health = 1
 var player_inattack_zone = false
+
+var not_giggled = true
 
 # Time in seconds for how long the sprite should stay red
 const DAMAGE_DURATION = 0.3
@@ -13,8 +15,9 @@ var damage_timer = 0.0
 var is_damaged = false
 
 @onready var animated_sprite = $AnimatedSprite2D
-const enemy_pain = preload("res://Assets/Sound/coalPAIN9.mp3")
-const enemy_dead = preload("res://Assets/Sound/coalDEAD.mp3")
+
+const boss_dead = preload("res://Assets/Sound/13797__sweetneo85__wilhelm.wav")
+const boss_giggle = preload("res://Assets/Sound/hehehe.mp3")
 
 func _process(delta):
 	if is_damaged:
@@ -38,19 +41,10 @@ func _physics_process(delta):
 
 func _ready():
 	$AnimatedSprite2D.play("idle")
-	var health = 3
+	var health = 1
 	var original_material = animated_sprite.material
 	var new_material = original_material.duplicate()
 	animated_sprite.material = new_material
-
-func _on_area_2d_body_entered(body):
-	player = body
-	player_chase = true
-
-
-func _on_area_2d_body_exited(body):
-	player = null
-	player_chase = false
 	
 # ATTACK STUFF
 func enemy():
@@ -60,29 +54,27 @@ func playerAttacked():
 	pass
 
 
-func _on_area_2d_2_body_entered(body):
+func _on_area_2d_body_entered(body):
 	if body.has_method("player"):
 		player_inattack_zone = true
 
 
-func _on_area_2d_2_body_exited(body):
+func _on_area_2d_body_exited(body):
 	if body.has_method("player"):
 		player_inattack_zone = false
 
 func deal_with_damage():
 	if player_inattack_zone and Resources.player_current_attack == true:
 		health	= health - 1
-		AudioPlayer.play_FX(enemy_pain, -12)
 		apply_damage()
 		print ("enemy health = ", health)
 		if health == 0:
 			speed = 0
 			player_chase = false
 			player = null
-			$AnimatedSprite2D.play("Death")
-			AudioPlayer.play_FX(enemy_dead, -12)
-			Resources.killAll += 1
-			$Timer.start()
+			$Timer.start(1)
+			AudioPlayer.play_FX(boss_dead, -12)
+			Resources.endSuccess = true
 
 func apply_damage():
 	set_damaged(true)
@@ -96,4 +88,13 @@ func set_damaged(damaged):
 		shader_material.set("shader_param/damage_color", Color(1.0, 0.0, 0.0, 1.0))  # Set damage color to red
 
 func _on_timer_timeout():
+	get_tree().change_scene_to_file("res://Scenes/end_game.tscn")
 	self.queue_free()
+
+
+func _on_area_2d_2_body_entered(body):
+	if body.has_method("player") and not_giggled == true:
+		AudioPlayer.play_FX(boss_giggle, -15)
+		not_giggled = false
+	else:
+		pass

@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://cf4pu34ic7rd0"]
+
+[ext_resource type="Script" path="res://Scenes/boss.gd" id="1_yr41h"]
+[ext_resource type="Shader" path="res://Scenes/Player.gdshader" id="2_fkcey"]
+[ext_resource type="Texture2D" uid="uid://b36cgroq3sand" path="res://Assets/Sprite-0003.png" id="2_hkx4a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5fcf"]
+shader = ExtResource("2_fkcey")
+shader_parameter/damaged = null
+shader_parameter/damage_color = Vector4(1, 0, 0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_77h23"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hkx4a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g5m52"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wq5a6"]
+size = Vector2(100, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3nnng"]
+size = Vector2(504, 270)
+
+[node name="Boss" type="CharacterBody2D"]
+script = ExtResource("1_yr41h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_l5fcf")
+sprite_frames = SubResource("SpriteFrames_77h23")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g5m52")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_wq5a6")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(1, 89)
+shape = SubResource("RectangleShape2D_3nnng")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]

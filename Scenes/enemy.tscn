@@ -74,7 +74,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"Death",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -97,17 +97,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t2jiv"]
 radius = 19.0263
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e7qhh"]
-radius = 125.399
+radius = 147.014
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1vyhv"]
-size = Vector2(145, 62)
+size = Vector2(213, 62)
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 6
@@ -134,6 +134,7 @@ shape = SubResource("CircleShape2D_e7qhh")
 [node name="Area2D2" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_1vyhv")
 
 [node name="Timer" type="Timer" parent="."]

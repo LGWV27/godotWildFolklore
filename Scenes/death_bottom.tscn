@@ -1,16 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://7x5baougo46i"]
+[gd_scene load_steps=8 format=3 uid="uid://7x5baougo46i"]
 
-[ext_resource type="Texture2D" uid="uid://dbbtcd5nf2xhg" path="res://Assets/Art/icon.svg" id="1_cmilg"]
 [ext_resource type="Script" path="res://Scenes/death_bottom.gd" id="1_oiulj"]
+[ext_resource type="Texture2D" uid="uid://6emcxottrmp0" path="res://Assets/Art/fire-Sheet.png" id="2_iuf6g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wds1h"]
-size = Vector2(128, 128)
+size = Vector2(128, 105.394)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bieq"]
+atlas = ExtResource("2_iuf6g")
+region = Rect2(0, 0, 370, 900)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qh36"]
+atlas = ExtResource("2_iuf6g")
+region = Rect2(370, 0, 370, 900)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bua4"]
+atlas = ExtResource("2_iuf6g")
+region = Rect2(740, 0, 370, 900)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7b0uh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_cmilg")
+"texture": SubResource("AtlasTexture_2bieq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qh36")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bua4")
 }],
 "loop": true,
 "name": &"default",
@@ -27,8 +45,12 @@ floor_block_on_wall = false
 script = ExtResource("1_oiulj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.178272, -0.301411)
+position = Vector2(-0.178272, 11.0016)
 shape = SubResource("RectangleShape2D_wds1h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.534818, -1.10516)
+scale = Vector2(0.350764, 0.143785)
 sprite_frames = SubResource("SpriteFrames_7b0uh")
+autoplay = "default"
+frame_progress = 0.194037

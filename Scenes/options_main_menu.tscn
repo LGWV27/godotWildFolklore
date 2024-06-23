@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://g4vcq5bq18id"]
+[gd_scene load_steps=4 format=3 uid="uid://g4vcq5bq18id"]
 
 [ext_resource type="Script" path="res://Scenes/options_main_menu.gd" id="1_nekqf"]
+[ext_resource type="FontFile" uid="uid://bk2cl11dc5wvh" path="res://Assets/ARCADECLASSIC.TTF" id="2_aesk7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hm1nh"]
+font = ExtResource("2_aesk7")
+font_size = 24
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.94902)
 
 [node name="OptionsMainMenu" type="Control"]
 layout_mode = 3
@@ -13,19 +22,40 @@ script = ExtResource("1_nekqf")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 2.0
+offset_right = 359.0
+offset_bottom = 641.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Volume" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Music" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Volume"
+text = "Music - CURRENTLY ON"
+
+[node name="Audio FX" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Audio FX - CURRENTLY ON
+"
 
 [node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Jump - Space
+Attack - E
+Movement - WASD
+
+I couldn't get rebinding
+to  work  "
+label_settings = SubResource("LabelSettings_hm1nh")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Music" to="." method="_on_volume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Audio FX" to="." method="_on_audio_fx_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

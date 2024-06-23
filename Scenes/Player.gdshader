@@ -7,7 +7,7 @@ void fragment() {
     vec4 tex_color = texture(TEXTURE, UV);
     if (damaged) {
         // Mix the original texture color with the damage color, but respect the original alpha
-        COLOR = mix(tex_color, damage_color, 0.5) * tex_color.a;
+        COLOR = mix(tex_color, damage_color, 0.3) * tex_color.a;
     } else {
         COLOR = tex_color;
     }
